@@ -149,7 +149,7 @@ const Calendar: React.FC<CalendarProps> = ({
                 setMessage(
                   isHolidayCell
                     ? `It's ${getHolidayName(formattedDate)} today`
-                    : 'Weekends and National Holidays are not allowed'
+                    : 'Weekends are not allowed'
                 );
               }
             }}
