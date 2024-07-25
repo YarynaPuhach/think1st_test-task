@@ -1,0 +1,72 @@
+.calendar-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.month-title {
+  
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.36px;
+}
+
+.days-row, .week-row {
+  display: flex;
+}
+.days-row {
+  height: 40px;
+}
+
+.day-name, .day-cell {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.day-name {
+  font-weight: bold;
+}
+
+.day-cell {
+  min-height: 40px;
+}
+
+.day-cell.selected {
+  background-color: #761BE4;
+  color: white;
+  border-radius: 50%;
+}
+
+.day-cell.holiday {
+  color: #898DA9;
+}
+
+.day-cell.disabled {
+  color: #C0C0C0;
+  cursor: not-allowed;
+}
+
+.holiday-message {
+  display: flex;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #000853;
+}

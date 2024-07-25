@@ -1,0 +1,108 @@
+.workout-form {
+  min-width: 400px;
+  background-color: #F0EAF8;
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.dateTime {
+  display: flex;
+  min-width: 430px;
+  justify-content: space-between;
+}
+.form-range-container {
+  position: relative;
+}
+
+.form-range {
+  width: 100%;
+  -webkit-appearance: none;
+  background: #CBB6E5;
+  height: 8px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.form-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #761BE4;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.form-range::-moz-range-thumb {
+  background: #761BE4;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.form-range::-ms-thumb {
+  background: #761BE4;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.form-range-value {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.form-file-label {
+  display: block;
+  cursor: pointer;
+  color: #761BE4;
+  font-size: 1rem;
+  text-decoration: underline;
+}
+
+.form-file-label input[type="file"] {
+  display: none;
+}
+
+.form-file-text {
+  margin-left: 8px;
+  color: #761BE4;
+}
+
+.form-drag-drop {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 4px;
+}
+.file-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 96px;
+  border: 1px solid #CBB6E5;
+  border-radius: 8px;
+  background-color: white;
+
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+}
+h2 {
+font-size: 24px;
+font-weight: 500;
+line-height: 29.05px;
+text-align: left;
+
+}
