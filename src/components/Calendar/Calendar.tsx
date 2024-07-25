@@ -124,11 +124,12 @@ const Calendar: React.FC<CalendarProps> = ({
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         const formattedDate = format(day, 'yyyy-MM-dd');
-        const cloneDay = day;
-
+        const isNationalHoliday = isHoliday(formattedDate, 'NATIONAL_HOLIDAY');
+        const isObservance = isHoliday(formattedDate, 'OBSERVANCE');
+        const isSunday = getDay(day) === 0;
+        const isDisabled = isNationalHoliday || isSunday;
         const isCurrentMonth = isSameMonth(day, monthStart);
-        const isDisabled = !isCurrentMonth || getDay(day) === 0;
-        const isHolidayCell = isHoliday(formattedDate, 'public');
+        const isHolidayCell = isHoliday(formattedDate, 'NATIONAL_HOLIDAY');
 
         days.push(
           <div
@@ -136,15 +137,19 @@ const Calendar: React.FC<CalendarProps> = ({
             className={`day-cell ${isDisabled ? 'disabled' : ''} ${isSameDay(day, new Date(selectedDate)) ? 'selected' : ''
               } ${isHolidayCell ? 'holiday' : ''}`}
             onClick={() => {
-              if (!isDisabled && !isHolidayCell) {
+              if (!isDisabled) {
                 onDateChange(formattedDate);
-                setMessage('');
+                if (isObservance) {
+                  setMessage(`Today is ${getHolidayName(formattedDate)}`);
+                } else {
+                  setMessage('');
+                }
               } else {
                 onInvalidDate();
                 setMessage(
                   isHolidayCell
                     ? `It's ${getHolidayName(formattedDate)} today`
-                    : 'Weekends are not allowed'
+                    : 'Weekends and National Holidays are not allowed'
                 );
               }
             }}
@@ -179,7 +184,6 @@ const Calendar: React.FC<CalendarProps> = ({
           {message}
         </div>
       }
-      
     </div>
   );
 };
