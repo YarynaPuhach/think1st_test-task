@@ -6,6 +6,7 @@ import TextField from '../TextField/TextField';
 import TimeSlot from '../TimeSlot/TimeSlot';
 import Calendar from '../Calendar/Calendar';
 import DeleteIcon from '../DeleteIcon/DeleteIcon';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const WorkoutForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ const WorkoutForm: React.FC = () => {
     firstName: '',
     lastName: '',
     email: '',
+    photo: '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +35,14 @@ const WorkoutForm: React.FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFormData({ ...formData, photo: e.target.files[0] });
+      setErrors({ ...errors, photo: '' });
     }
   };
 
   const handleDateChange = (date: string) => {
-    setFormData({ ...formData, date });
+    setFormData({ ...formData, date, time: '' });
   };
+
   const handleRemoveFile = () => {
     setFormData({ ...formData, photo: null });
   };
@@ -61,7 +65,7 @@ const WorkoutForm: React.FC = () => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setErrors({
           ...errors,
-          email: emailPattern.test(value) ? '' : 'Please use correct formatting.\n Example: address@email.com',
+          email: emailPattern.test(value) ? '' : 'Please use correct formatting. Example: address@email.com',
         });
         break;
       default:
@@ -69,14 +73,35 @@ const WorkoutForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const validateForm = () => {
     validateField('firstName', formData.firstName);
     validateField('lastName', formData.lastName);
     validateField('email', formData.email);
 
-    if (Object.values(errors).some(error => error)) {
+    if (!formData.photo) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        photo: 'Please upload a photo',
+      }));
+    }
+
+    return (
+      formData.firstName &&
+      formData.lastName &&
+      formData.email &&
+      formData.photo &&
+      !Object.values(errors).some((error) => error)
+    );
+  };
+
+  const handleInvalidDate = () => {
+    setFormData({ ...formData, date: '', time: '' });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
       return;
     }
 
@@ -101,7 +126,7 @@ const WorkoutForm: React.FC = () => {
     }
   };
 
-  const isFormValid = formData.firstName && formData.lastName && formData.email && formData.date;
+  const isFormValid = formData.firstName && formData.lastName && formData.email && formData.date && formData.photo && formData.time;
 
   return (
     <form onSubmit={handleSubmit} className="workout-form">
@@ -159,7 +184,6 @@ const WorkoutForm: React.FC = () => {
               name="photo"
               onChange={handleFileChange}
               className="form-file"
-              required
             />
             <span className="form-file-text">{formData.photo ? formData.photo.name : 'Upload a file'}</span>
           </label>
@@ -171,12 +195,13 @@ const WorkoutForm: React.FC = () => {
             ) : "Or drag and drop here"}
           </div>
         </div>
+        {errors.photo && <ErrorMessage errorMessage={errors.photo} />}
       </div>
       <h2>Your workout</h2>
       <div className="dateTime">
         <div className="form-group">
           <label className="form-label">Date</label>
-          <Calendar onDateChange={handleDateChange} selectedDate={formData.date} />
+          <Calendar onDateChange={handleDateChange} selectedDate={formData.date} onInvalidDate={handleInvalidDate} />
         </div>
         {formData.date && (
           <div className="form-group">

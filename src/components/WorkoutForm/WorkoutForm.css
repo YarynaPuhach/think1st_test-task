@@ -1,5 +1,4 @@
 .workout-form {
-  min-width: 400px;
   background-color: #F0EAF8;
   padding: 24px;
 }
@@ -13,6 +12,14 @@
   min-width: 430px;
   justify-content: space-between;
 }
+
+@media (max-width: 768px) {
+  .dateTime {
+    flex-direction: column;
+    min-width: 330px;
+  }
+}
+
 .form-range-container {
   position: relative;
 }
@@ -20,6 +27,7 @@
 .form-range {
   width: 100%;
   -webkit-appearance: none;
+  appearance: none;
   background: #CBB6E5;
   height: 8px;
   border-radius: 5px;
