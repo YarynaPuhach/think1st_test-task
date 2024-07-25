@@ -7,9 +7,24 @@ import TimeSlot from '../TimeSlot/TimeSlot';
 import Calendar from '../Calendar/Calendar';
 import DeleteIcon from '../DeleteIcon/DeleteIcon';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  age: number;
+  photo: File | null;
+  date: string;
+  time: string;
+}
+interface FormErrors {
+  firstName: string;
+  lastName: string;
+  email: string;
+  photo: string;
+}
 
 const WorkoutForm: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -19,7 +34,7 @@ const WorkoutForm: React.FC = () => {
     time: '',
   });
 
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormErrors>({
     firstName: '',
     lastName: '',
     email: '',
@@ -120,7 +135,6 @@ const WorkoutForm: React.FC = () => {
       });
       alert('Application sent successfully!');
 
-      // Очищення форми
       setFormData({
         firstName: '',
         lastName: '',
