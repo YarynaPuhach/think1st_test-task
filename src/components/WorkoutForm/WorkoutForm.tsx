@@ -107,20 +107,35 @@ const WorkoutForm: React.FC = () => {
 
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (key === 'photo' && value) {
-        formDataToSend.append(key, value as Blob);
-      } else {
-        if (value) {
-          formDataToSend.append(key, value.toString());
-        }
+      if (key === 'photo' && value instanceof File) {
+        formDataToSend.append(key, value);
+      } else if (value) {
+        formDataToSend.append(key, value.toString());
       }
     });
 
     try {
-      await axios.post('https://letsworkout.pl/submit', formDataToSend, {
+      await axios.post('http://localhost:5000/submit', formDataToSend, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Application sent successfully!');
+
+      // Очищення форми
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        age: 8,
+        photo: null,
+        date: '',
+        time: '',
+      });
+      setErrors({
+        firstName: '',
+        lastName: '',
+        email: '',
+        photo: '',
+      });
     } catch (error) {
       console.error('Error submitting form:', error);
     }
