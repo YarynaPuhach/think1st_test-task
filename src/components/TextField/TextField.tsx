@@ -16,7 +16,16 @@ const TextField: React.FC<TextFieldProps> = ({ label, type = 'text', name, value
 
   return (
     <div className="mb-4">
-      <label className={`block text-sm font-bold mb-2 ${error ? 'text-red-600' : 'text-gray-700'}`}>{label}</label>
+      <label
+        className={`block mb-2 ${error ? 'text-red-600' : 'text-custom-label'}`}
+        style={{
+          fontSize: '16px',
+          fontWeight: 400,
+          color: '#000853',
+        }}
+      >
+        {label}
+      </label>
       <input
         type={type}
         name={name}

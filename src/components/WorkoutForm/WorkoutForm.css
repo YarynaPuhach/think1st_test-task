@@ -4,6 +4,7 @@
 }
 
 .form-group {
+  padding: 10px;
   margin-bottom: 16px;
 }
 
@@ -67,6 +68,14 @@
   margin-top: 8px;
 }
 
+.form-label {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000853;
+  display: block;
+  margin-bottom: 10px;
+}
+
 .form-file-label {
   display: block;
   cursor: pointer;
@@ -111,6 +120,6 @@ h2 {
 font-size: 24px;
 font-weight: 500;
 line-height: 29.05px;
-text-align: left;
+margin-bottom: 20px;
 
 }

@@ -117,7 +117,7 @@ const WorkoutForm: React.FC = () => {
     });
 
     try {
-      await axios.post('http://letsworkout.pl/submit', formDataToSend, {
+      await axios.post('https://letsworkout.pl/submit', formDataToSend, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Application sent successfully!');
